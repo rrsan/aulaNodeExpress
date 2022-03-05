@@ -1,4 +1,7 @@
+const bodyParser = require('body-parser')
 const express = require("express")
+
+const jsonParser = bodyParser.json()
 
 const server = express()
 
@@ -12,6 +15,19 @@ server.get( "/:id" , function (req, res) {
     const {id} = req.params
     const aux = usuarios.find((usuario) => usuario.id == id)
     res.send(aux)
+})
+
+server.post("/",jsonParser,(req,res) => {
+    console.log(req.body)
+    const aux = req.body
+    usuarios.push(aux)
+    res.send(usuarios)
+})
+
+server.delete("/:index",(req,res) => {
+    const {index} = req.params;
+    usuarios.splice(index,1)
+    res.send(usuarios)
 })
 
 server.listen(3000)
