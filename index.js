@@ -5,7 +5,10 @@ const jsonParser = bodyParser.json();
 
 const server = express();
 
-server.use(express.json());
+// server.use(express.json());
+// server.use(express.urlencoded({
+//     extended: false
+// }));
 
 const usuarios = [{id:1, nome:"Rodrigo",sobrenome:"Santos"},{id:2, nome:"Aline",sobrenome:"Rocha"}];
 
@@ -26,11 +29,14 @@ server.post("/",jsonParser,(req,res) => {
     res.send(usuarios)
 });
 
+
 server.delete("/:index",(req,res) => {
     const {index} = req.params;
     usuarios.splice(index,1)
     res.send(usuarios)
 });
+
+
 
 server.listen(3000);
 
